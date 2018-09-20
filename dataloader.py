@@ -8,6 +8,7 @@ import collections
 
 from fastai.dataset import open_image
 
+""" simple default Dataset class """
 class FilesDataset(Dataset):
     def __init__(self, fnames,y, transform, path):
         self.path,self.fnames,self.transform,self.y = path,fnames,transform,y
@@ -35,8 +36,7 @@ class FilesDataset(Dataset):
     def get(self, tfm, x, y):
         return (x,y) if tfm is None else tfm(x,y)
     
-    
-    
+""" Dataset to concat two labels """
 class ConcatDataset(Dataset):
     
     def __init__(self,ds,y2):
@@ -50,7 +50,7 @@ class ConcatDataset(Dataset):
         
     def __len__(self): return len(self.ds)
     
-    
+""" Convert to Tensor"""   
 def T(a,half=False):
     
     if not torch.is_tensor(a):
@@ -72,7 +72,10 @@ def get_Tensor(batch,pin):
     elif isinstance(batch, collections.Sequence):
         return [get_Tensor(samples,pin) for samples in batch]
     return TypeError(("batch must contain numbers,dict or list for converting into tensor"))         
-        
+
+
+
+""" custom Dataloader function with collate function """
 class CustomDataLoader(object):
     
     def __init__(self,dataset,batch_size,shuffle=True,pin_memory=False):
@@ -126,7 +129,7 @@ class CustomDataLoader(object):
         
         
     
-
+""" Simple data loader """
 def get_data_loader(input_data,label,tfms,PATH,bs):
     
     train_dataloader = DataLoader(FilesDataset(input_data['train'],label['train'],tfms['train'],PATH), 
@@ -142,8 +145,7 @@ def get_data_loader(input_data,label,tfms,PATH,bs):
     return train_dataloader, valid_dataloader, aug_dataloader
 
 
-
-
+""" Get custom dataloader for multi label Concat dataset """
 def get_concat_data_loader(input_data,label,label2,tfms,PATH,bs):
     
     trn_ds = FilesDataset(input_data['train'],label['train'],tfms['train'],PATH)
