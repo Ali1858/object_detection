@@ -154,7 +154,7 @@ def get_concat_data_loader(input_data,label,label2,tfms,PATH,bs):
     
     val_ds = FilesDataset(input_data['valid'],label['valid'],tfms['valid'],PATH)
     val_final_ds = ConcatDataset(val_ds,label2['valid'])
-    valid_dataloader = CustomDataLoader(val_final_ds, batch_size=bs,shuffle=False)
+    valid_dataloader = CustomDataLoader(val_final_ds, batch_size=bs,shuffle=True)
     
     
     aug_ds = FilesDataset(input_data['valid'],label['valid'],tfms['valid'],PATH)
