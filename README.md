@@ -1,8 +1,8 @@
 # object_detection
 
 strip down version of Fast ai implementation of SSD multiple object detection
-Trying to remove all the abstraction of fast.ai learner , Dataloader class, for simply understand algorithm. 
-since this code doesn't  includes rings and bell of fast ai library , obviously we sacrifice in accuracy.
+Trying to remove all the abstraction of fast.ai learner , Dataloader class, for simply understanding algorithm. 
+since this code doesn't  includes bells and whistles of fast ai library , obviously we sacrifice performance and accuracy.
 
 ## Single object detection
 
